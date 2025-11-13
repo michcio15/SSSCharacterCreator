@@ -1,0 +1,13 @@
+﻿# SSSCharacterCreator
+An [Exiled](https://github.com/ExMod-Team/EXILED/tree/master/EXILED) plugin for SCP:SL that adds to SSS a character creator. Best used for RP servers.
+## Dependencies
+[ASS](https://github.com/Someone-193/ASS/) by *@someone* (i used the exiled one for my testing)
+## Usage
+For player to get the character creator he needs to have the permission stated in config
+```yaml
+character_creator_permission: 'cc.create'
+```
+## Support
+You can open an [issue](https://github.com/michcio15/SSSCharacterCreator/issues) or dm/ping me on Exiled discord *@michcio15*.
+
+
