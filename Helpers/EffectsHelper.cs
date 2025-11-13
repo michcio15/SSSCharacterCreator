@@ -94,7 +94,6 @@ public static class EffectsHelper
 
     public static Dictionary<EffectType, Dictionary<int, byte>>? GetEffects(string inputText)
     {
-
         Dictionary<EffectType, Dictionary<int, byte>> result = new();
 
         if (string.IsNullOrWhiteSpace(inputText))

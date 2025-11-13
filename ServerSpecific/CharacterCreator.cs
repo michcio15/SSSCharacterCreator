@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using ASS.Features;
 using ASS.Features.Collections;
@@ -16,7 +15,6 @@ using SSSCharacterCreator.Extensions;
 using SSSCharacterCreator.Helpers;
 using TMPro;
 using UnityEngine;
-using UserSettings.ServerSpecific;
 using LabPlayer = LabApi.Features.Wrappers.Player;
 using ExiledPlayer = Exiled.API.Features.Player;
 
@@ -103,11 +101,13 @@ public class CharacterCreator
             new ASSDropdown(KeycardTypeDropdownID, translation.KeycardTypeDropdownText, config.KeycardTypesMap,
                 onChanged: Update),
 
-            new ASSTextInput(KeycardColorInputID, translation.KeycardColorInputText, hint: "Format (HEX) -> #RRGGBB",placeholder:"#123456",
+            new ASSTextInput(KeycardColorInputID, translation.KeycardColorInputText, hint: "Format (HEX) -> #RRGGBB",
+                placeholder: "#123456",
                 onChanged: KeycardCreatorHelpers.ChangeKeycardColorDisplay),
 
             new ASSTextDisplay(KeycardColorDisplayID, translation.KeycardColorDisplayText.Replace("%hex%", "#FFFFFF")),
-            new ASSTextInput(KeycardPermissionColorInputID, translation.PermissionColorInputText,placeholder:"#123456",
+            new ASSTextInput(KeycardPermissionColorInputID, translation.PermissionColorInputText,
+                placeholder: "#123456",
                 hint: "Format (HEX) -> #RRGGBB", onChanged: KeycardCreatorHelpers.ChangeKeycardPermissionColorDisplay),
 
             new ASSTextDisplay(KeycardPermissionColorDisplayID,
@@ -172,6 +172,7 @@ public class CharacterCreator
             menu.Update(false, true, true);
         }
     }
+
     private static bool Valid(LabPlayer player) => player.ToExiled().CheckPermission(config.CharacterCreatorPermission);
 
 

@@ -51,6 +51,7 @@ public static class ItemHelper
                 addKeycard = true;
             }
         }
+
         return items;
     }
 }
