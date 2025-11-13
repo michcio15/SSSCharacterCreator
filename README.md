@@ -7,8 +7,7 @@ For player to get the character creator he needs to have the permission stated i
 ```yaml
 character_creator_permission: 'cc.create'
 ```
-Player can be spawned only if player is **not** alive and the round is started.
+Player can be spawned only if he is **not** alive and the round is started.
 ## Support
 You can open an [issue](https://github.com/michcio15/SSSCharacterCreator/issues) or dm/ping me on Exiled discord *@michcio15*.
-
-
+###### The config names are generated using AI cuz i am lazy
