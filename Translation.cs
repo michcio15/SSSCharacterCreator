@@ -16,7 +16,7 @@ public class Translation : ITranslation
     public string CharacterCreatorCharacterNamePlaceholder { get; set; } = "John";
     public string CharacterCreatorCharacterDescriptionText { get; set; } = "Character's Custom Info";
 
-    public string CharacterCreatorCharacterDescriptionHint { get; set; } = "Is interesting";
+    public string CharacterCreatorCharacterDescriptionPlaceholder { get; set; } = "Is interesting";
 
     public string CharacterCreatorRoleText { get; set; } = "Role";
 
@@ -91,10 +91,10 @@ public class Translation : ITranslation
     public string KeycardTypeDropdownText { get; set; } = "Keycard Type";
     public string KeycardColorInputText { get; set; } = "Keycard Color Input";
 
-    [Description("&hex& is replaced with the text inputted in KeycardColorInput")]
+    [Description("%hex% is replaced with the text inputted in KeycardColorInput")]
     public string KeycardColorDisplayText { get; set; } = "Card color: <color=%hex%>███████████</color>";
 
-    [Description("&hex& is replaced with the text inputted in PermissionColorInput")]
+    [Description("%hex% is replaced with the text inputted in PermissionColorInput")]
     public string PermissionColorDisplayText { get; set; } = "Permission color: <color=%hex%>███████████</color>";
 
     public string PermissionColorInputText { get; set; } = "Permission Color Input";

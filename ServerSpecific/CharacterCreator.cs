@@ -59,9 +59,11 @@ public class CharacterCreator
         List<ASSBase> settings =
         [
             new ASSHeader(-1, translation.CharacterCreatorHeaderText),
-            new ASSTextInput(151, translation.CharacterCreatorCharacterNameText, "Jan", "Jan"),
-            new ASSTextInput(152, translation.CharacterCreatorCharacterDescriptionText, "",
-                "Ma na sobie czarny płaszcz"),
+            new ASSTextInput(151, translation.CharacterCreatorCharacterNameText,
+                placeholder: translation.CharacterCreatorCharacterNamePlaceholder),
+            new ASSTextInput(152, translation.CharacterCreatorCharacterDescriptionText,
+                placeholder: translation.CharacterCreatorCharacterDescriptionPlaceholder
+            ),
 
             new ASSDropdown(153, translation.CharacterCreatorRoleText, characterRoleList),
             new ASSDropdown(154, translation.CharacterCreatorSpawnText, spawnLocationList),
