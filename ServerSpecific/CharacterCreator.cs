@@ -172,19 +172,6 @@ public class CharacterCreator
             menu.Update(false, true, true);
         }
     }
-
-    /*//TODO: usunac
-    private static void OnKeycardUpdate(LabPlayer player, ASSBase assBase)
-    {
-        Log.Info($"{player.Nickname} updatuje {assBase.Label}");
-        if (Menus.TryGetValue(player, out var menu))
-        {
-            menu.Update(false, true, true);
-            return;
-        }
-    }*/
-
-
     private static bool Valid(LabPlayer player) => player.ToExiled().CheckPermission(config.CharacterCreatorPermission);
 
 
@@ -332,11 +319,13 @@ public class CharacterCreator
     public static void OnLeft(LeftEventArgs ev)
     {
         LabPlayer player = ev.Player.ToLab();
-        if (menus.TryGetValue(player, out PlayerMenu menu))
+        if (!menus.TryGetValue(player, out PlayerMenu menu))
         {
-            Log.Debug($"Destroying menu for {ev.Player.Nickname}");
-            menu.Destroy();
+            return;
         }
+
+        Log.Debug($"Destroying menu for {ev.Player.Nickname}");
+        menu.Destroy();
 
         /*foreach (KeyValuePair<LabPlayer, PlayerMenu> kvp in Menus)
         {
