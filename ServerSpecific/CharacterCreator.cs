@@ -87,7 +87,7 @@ public class CharacterCreator
             new ASSDropdown(168, translation.Item7Text, itemsList),
             new ASSDropdown(169, translation.Item8Text, customCardItemsList, onChanged: Update),
             new ASSButton(170, translation.CharacterCreatorCreateButtonText,
-                translation.CharacterCreatorCreateButtonTooltip, 0.5f, onChanged:CreateCharacter)
+                translation.CharacterCreatorCreateButtonTooltip, 0.5f, onChanged: CreateCharacter)
         ];
 
         if (!ValidKeycardCreator(owner))
@@ -172,16 +172,20 @@ public class CharacterCreator
         if (menus.TryGetValue(player, out PlayerMenu? menu))
         {
             menu.Update(false, true, true);
-            if(ASSNetworking.TryGetSetting(player, 157, out ASSTextInput? ammoInput))
+            Timing.CallDelayed(0.1f, () =>
             {
+                if (ASSNetworking.TryGetSetting(player, 157, out ASSTextInput? ammoInput))
+                {
+                    //Log.Debug("ammoInput change ig ");
+                    ChangeAmmoDisplay(player, ammoInput);
+                }
 
-                ChangeAmmoDisplay(player, ammoInput);
-            }
-            if(ASSNetworking.TryGetSetting(player, 155, out ASSTextInput? effectsInput))
-            {
-
-                ChangeEffectsDisplay(player, effectsInput);
-            }
+                if (ASSNetworking.TryGetSetting(player, 155, out ASSTextInput? effectsInput))
+                {
+                    //Log.Debug("effectsInput change ig ");
+                    ChangeEffectsDisplay(player, effectsInput);
+                }
+            });
         }
     }
 
