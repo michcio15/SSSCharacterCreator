@@ -11,6 +11,7 @@ public class SssCharacterCreator : Plugin<Config, Translation>
     public static SssCharacterCreator? Instance;
     public override string Name { get; } = "SSSCharacterCreator";
     public override string Author { get; } = "michcio";
+    public override string Prefix { get; } = "SSSCharacterCreator";
     public static new Translation Translation { get; private set; } = null!;
     public static new Config Config { get; private set; } = null!;
     public override Version Version { get; } = new(1, 0, 0);
