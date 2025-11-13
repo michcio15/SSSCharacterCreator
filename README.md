@@ -2,6 +2,7 @@
 An [Exiled](https://github.com/ExMod-Team/EXILED/tree/master/EXILED) plugin for SCP:SL that adds to SSS a character
 creator. Best used for RP servers.
 
+![Some version](https://img.shields.io/github/v/release/michcio15/SSSCharacterCreator)
 ## Dependencies
 
 [ASS](https://github.com/Someone-193/ASS/) by *@someone* (i used the exiled one for my testing)
