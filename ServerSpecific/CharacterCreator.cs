@@ -87,7 +87,7 @@ public class CharacterCreator
             new ASSDropdown(168, translation.Item7Text, itemsList),
             new ASSDropdown(169, translation.Item8Text, customCardItemsList, onChanged: Update),
             new ASSButton(170, translation.CharacterCreatorCreateButtonText,
-                translation.CharacterCreatorCreateButtonTooltip, 0.5f, "Kliknij", CreateCharacter)
+                translation.CharacterCreatorCreateButtonTooltip, 0.5f, onChanged:CreateCharacter)
         ];
 
         if (!ValidKeycardCreator(owner))
