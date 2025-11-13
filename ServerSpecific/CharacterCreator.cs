@@ -172,6 +172,16 @@ public class CharacterCreator
         if (menus.TryGetValue(player, out PlayerMenu? menu))
         {
             menu.Update(false, true, true);
+            if(ASSNetworking.TryGetSetting(player, 157, out ASSTextInput? ammoInput))
+            {
+
+                ChangeAmmoDisplay(player, ammoInput);
+            }
+            if(ASSNetworking.TryGetSetting(player, 155, out ASSTextInput? effectsInput))
+            {
+
+                ChangeEffectsDisplay(player, effectsInput);
+            }
         }
     }
 
@@ -304,6 +314,7 @@ public class CharacterCreator
                 [player]);
         }
     }
+
 
     #region Events
 
