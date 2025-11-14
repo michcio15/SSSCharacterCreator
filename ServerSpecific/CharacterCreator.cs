@@ -59,7 +59,8 @@ public static class CharacterCreator
         CharacterRoleList = DictionaryUtils.DictionaryToList(config.Role);
         SpawnLocationList = DictionaryUtils.DictionaryToList(config.SpawnLocation);
         List<string> tempItemsList = DictionaryUtils.DictionaryToList(config.Items).ToList();
-        foreach (CustomItem customItem in CustomItem.Registered.Where(c => !config.ExcludedExiledCustomItemsID.Contains(c.Id)))
+        foreach (CustomItem customItem in CustomItem.Registered.Where(c =>
+                     !config.ExcludedExiledCustomItemsID.Contains(c.Id)))
         {
             tempItemsList.Add(customItem.Name);
             CustomItems.Add(customItem);

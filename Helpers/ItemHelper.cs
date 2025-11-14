@@ -4,7 +4,6 @@ using ASS.Features.Settings;
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
 using SSSCharacterCreator.Extensions;
-using SSSCharacterCreator.ServerSpecific;
 using LabPlayer = LabApi.Features.Wrappers.Player;
 using ExiledPlayer = Exiled.API.Features.Player;
 
@@ -17,7 +16,7 @@ public static class ItemHelper
 
     public static void GiveItems(ExiledPlayer player, out bool addKeycard)
     {
-        List<ItemType> items = GetPlayerItems(player.ToLab(),out List<CustomItem>? customItems,  out bool add);
+        List<ItemType> items = GetPlayerItems(player.ToLab(), out List<CustomItem>? customItems, out bool add);
         foreach (ItemType itemType in items)
         {
             Log.Info(itemType.ToString());
@@ -28,15 +27,16 @@ public static class ItemHelper
         {
             foreach (CustomItem customItem in customItems)
             {
-                CustomItem.TryGive(player ,customItem.Id);
+                CustomItem.TryGive(player, customItem.Id);
             }
         }
+
         addKeycard = add;
     }
 
 
-
-    private static List<ItemType> GetPlayerItems(LabPlayer player,out List<CustomItem> customItems ,out bool addKeycard)
+    private static List<ItemType> GetPlayerItems(LabPlayer player, out List<CustomItem> customItems,
+        out bool addKeycard)
     {
         addKeycard = false;
         List<ItemType> items = [];
