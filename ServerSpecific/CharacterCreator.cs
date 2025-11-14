@@ -176,14 +176,23 @@ public class CharacterCreator
             {
                 if (ASSNetworking.TryGetSetting(player, 157, out ASSTextInput? ammoInput))
                 {
-                    //Log.Debug("ammoInput change ig ");
                     ChangeAmmoDisplay(player, ammoInput);
                 }
 
                 if (ASSNetworking.TryGetSetting(player, 155, out ASSTextInput? effectsInput))
                 {
-                    //Log.Debug("effectsInput change ig ");
                     ChangeEffectsDisplay(player, effectsInput);
+                }
+
+                if (ASSNetworking.TryGetSetting(player, KeycardColorInputID, out ASSTextInput? keycardColorInput))
+                {
+                    KeycardCreatorHelpers.ChangeKeycardColorDisplay(player, keycardColorInput);
+                }
+
+                if (ASSNetworking.TryGetSetting(player, KeycardColorInputID,
+                        out ASSTextInput? permissionColorInput))
+                {
+                    KeycardCreatorHelpers.ChangeKeycardPermissionColorDisplay(player, permissionColorInput);
                 }
             });
         }
