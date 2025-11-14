@@ -7,6 +7,7 @@ using ASS.Features.Settings.Displays;
 using Exiled.API.Enums;
 using Exiled.API.Extensions;
 using Exiled.API.Features;
+using Exiled.CustomItems.API.Features;
 using Exiled.Events.EventArgs.Player;
 using Exiled.Permissions.Extensions;
 using MEC;
@@ -21,7 +22,7 @@ using ExiledPlayer = Exiled.API.Features.Player;
 namespace SSSCharacterCreator.ServerSpecific;
 #pragma warning disable 1591
 // ReSharper disable once ClassNeverInstantiated.Global
-public class CharacterCreator
+public static class CharacterCreator
 {
     public const int KeycardItemNameInputID = 172;
     public const int KeycardLabelInputID = 173;
@@ -41,17 +42,32 @@ public class CharacterCreator
     private static readonly Config config = SssCharacterCreator.Config;
     private static readonly Translation translation = SssCharacterCreator.Translation;
 
+    // Player menus
     private static readonly Dictionary<LabPlayer, PlayerMenu> menus = new();
     private static readonly Dictionary<LabPlayer, float> lastUpdateTime = new();
 
-    //TODO : Zrobic ze sie odswieza tylko jezeli cos tam no ten
-    //private static readonly Dictionary<LabPlayer, bool> previousItem8IsKeycard = new();
-    private static readonly string[] characterRoleList = DictionaryUtils.DictionaryToList(config.Role);
-    private static readonly string[] spawnLocationList = DictionaryUtils.DictionaryToList(config.SpawnLocation);
-    private static readonly string[] itemsList = DictionaryUtils.DictionaryToList(config.Items);
+    // Lists
+    public static readonly string[] CharacterRoleList;
+    public static readonly string[] SpawnLocationList;
+    public static readonly string[] ItemsList;
+    public static readonly string[] CustomCardItemsList;
+    public static readonly HashSet<CustomItem> CustomItems = [];
 
-    private static readonly string[] customCardItemsList =
-        new[] { config.CustomCardItemName }.Concat(itemsList).ToArray();
+
+    static CharacterCreator()
+    {
+        CharacterRoleList = DictionaryUtils.DictionaryToList(config.Role);
+        SpawnLocationList = DictionaryUtils.DictionaryToList(config.SpawnLocation);
+        List<string> tempItemsList = DictionaryUtils.DictionaryToList(config.Items).ToList();
+        foreach (CustomItem customItem in CustomItem.Registered.Where(c => !config.ExcludedExiledCustomItemsID.Contains(c.Id)))
+        {
+            tempItemsList.Add(customItem.Name);
+            CustomItems.Add(customItem);
+        }
+
+        ItemsList = tempItemsList.ToArray();
+        CustomCardItemsList = new[] { config.CustomCardItemName }.Concat(ItemsList).ToArray();
+    }
 
 
     private static ASSGroup Generator(LabPlayer owner)
@@ -65,8 +81,8 @@ public class CharacterCreator
                 placeholder: translation.CharacterCreatorCharacterDescriptionPlaceholder
             ),
 
-            new ASSDropdown(153, translation.CharacterCreatorRoleText, characterRoleList),
-            new ASSDropdown(154, translation.CharacterCreatorSpawnText, spawnLocationList),
+            new ASSDropdown(153, translation.CharacterCreatorRoleText, CharacterRoleList),
+            new ASSDropdown(154, translation.CharacterCreatorSpawnText, SpawnLocationList),
             new ASSTextInput(155, translation.EffectsInputText, hint: translation.EffectsInputHint,
                 onChanged: ChangeEffectsDisplay),
 
@@ -78,14 +94,14 @@ public class CharacterCreator
             new ASSSlider(159, translation.ScaleXSettingText, 1f, 0.1f, 2f, hint: translation.ScaleXSettingHint),
             new ASSSlider(160, translation.ScaleYSettingText, 1f, 0.1f, 2f, hint: translation.ScaleYSettingHint),
             new ASSSlider(161, translation.ScaleZSettingText, 1f, 0.1f, 2f, hint: translation.ScaleZSettingHint),
-            new ASSDropdown(162, translation.Item1Text, itemsList),
-            new ASSDropdown(163, translation.Item2Text, itemsList),
-            new ASSDropdown(164, translation.Item3Text, itemsList),
-            new ASSDropdown(165, translation.Item4Text, itemsList),
-            new ASSDropdown(166, translation.Item5Text, itemsList),
-            new ASSDropdown(167, translation.Item6Text, itemsList),
-            new ASSDropdown(168, translation.Item7Text, itemsList),
-            new ASSDropdown(169, translation.Item8Text, customCardItemsList, onChanged: Update),
+            new ASSDropdown(162, translation.Item1Text, ItemsList),
+            new ASSDropdown(163, translation.Item2Text, ItemsList),
+            new ASSDropdown(164, translation.Item3Text, ItemsList),
+            new ASSDropdown(165, translation.Item4Text, ItemsList),
+            new ASSDropdown(166, translation.Item5Text, ItemsList),
+            new ASSDropdown(167, translation.Item6Text, ItemsList),
+            new ASSDropdown(168, translation.Item7Text, ItemsList),
+            new ASSDropdown(169, translation.Item8Text, CustomCardItemsList, onChanged: Update),
             new ASSButton(170, translation.CharacterCreatorCreateButtonText,
                 translation.CharacterCreatorCreateButtonTooltip, 0.5f, onChanged: CreateCharacter)
         ];

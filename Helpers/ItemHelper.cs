@@ -2,7 +2,9 @@
 using ASS.Features;
 using ASS.Features.Settings;
 using Exiled.API.Features;
+using Exiled.CustomItems.API.Features;
 using SSSCharacterCreator.Extensions;
+using SSSCharacterCreator.ServerSpecific;
 using LabPlayer = LabApi.Features.Wrappers.Player;
 using ExiledPlayer = Exiled.API.Features.Player;
 
@@ -15,20 +17,30 @@ public static class ItemHelper
 
     public static void GiveItems(ExiledPlayer player, out bool addKeycard)
     {
-        List<ItemType> items = GetPlayerItems(player.ToLab(), out bool add);
+        List<ItemType> items = GetPlayerItems(player.ToLab(),out List<CustomItem>? customItems,  out bool add);
         foreach (ItemType itemType in items)
         {
             Log.Info(itemType.ToString());
             player.AddItem(itemType);
         }
 
+        if (!customItems.IsEmpty())
+        {
+            foreach (CustomItem customItem in customItems)
+            {
+                CustomItem.TryGive(player ,customItem.Id);
+            }
+        }
         addKeycard = add;
     }
 
-    private static List<ItemType> GetPlayerItems(LabPlayer player, out bool addKeycard)
+
+
+    private static List<ItemType> GetPlayerItems(LabPlayer player,out List<CustomItem> customItems ,out bool addKeycard)
     {
         addKeycard = false;
         List<ItemType> items = [];
+        customItems = [];
 
         int[] itemsId = [162, 163, 164, 165, 166, 167, 168, 169];
 
@@ -49,6 +61,16 @@ public static class ItemHelper
             else if (selectedText == config.CustomCardItemName)
             {
                 addKeycard = true;
+            }
+            else
+            {
+                if (CustomItem.TryGet(selectedText, out CustomItem? customItem))
+                {
+                    if (customItem != null)
+                    {
+                        customItems.Add(customItem);
+                    }
+                }
             }
         }
 

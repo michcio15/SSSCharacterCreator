@@ -139,6 +139,7 @@ public class Config : IConfig
     public string CharacterCreatorPermission { get; set; } = "cc.create";
     public string CustomCardItemName { get; set; } = "<b>Custom Keycard</b>";
 
+    public List<uint> ExcludedExiledCustomItemsID { get; set; }= [];
 
     public bool IsEnabled { get; set; } = true;
     public bool Debug { get; set; } = false;
