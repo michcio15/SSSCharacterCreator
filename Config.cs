@@ -140,6 +140,7 @@ public class Config : IConfig
     public string CustomCardItemName { get; set; } = "<b>Custom Keycard</b>";
 
     [Description("What Custom Items should not be able to be given with the menu")]
+    // ReSharper disable once CollectionNeverUpdated.Global
     public List<uint> ExcludedExiledCustomItemsID { get; set; } = [];
 
     public bool IsEnabled { get; set; } = true;

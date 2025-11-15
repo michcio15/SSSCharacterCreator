@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ASS.Features;
 using ASS.Features.Settings;
 using Exiled.API.Features;
 using Exiled.CustomItems.API.Features;
 using SSSCharacterCreator.Extensions;
+using SSSCharacterCreator.ServerSpecific;
 using LabPlayer = LabApi.Features.Wrappers.Player;
 using ExiledPlayer = Exiled.API.Features.Player;
 
@@ -64,14 +66,13 @@ public static class ItemHelper
             }
             else
             {
-                if (CustomItem.TryGet(selectedText, out CustomItem? customItem))
+                if (CharacterCreator.CustomItems.FirstOrDefault(kv => kv.Name == selectedText) is { } customItem)
                 {
-                    if (customItem != null)
-                    {
-                        customItems.Add(customItem);
-                    }
+                    customItems.Add(customItem);
                 }
             }
+
+            Log.Debug($"{id} selected: {selectedText}");
         }
 
         return items;

@@ -42,11 +42,11 @@ public static class CharacterCreator
     private static readonly Config config = SssCharacterCreator.Config;
     private static readonly Translation translation = SssCharacterCreator.Translation;
 
-    // Player menus
+
     private static readonly Dictionary<LabPlayer, PlayerMenu> menus = new();
     private static readonly Dictionary<LabPlayer, float> lastUpdateTime = new();
 
-    // Lists
+
     public static readonly string[] CharacterRoleList;
     public static readonly string[] SpawnLocationList;
     public static readonly string[] ItemsList;
@@ -59,12 +59,15 @@ public static class CharacterCreator
         CharacterRoleList = DictionaryUtils.DictionaryToList(config.Role);
         SpawnLocationList = DictionaryUtils.DictionaryToList(config.SpawnLocation);
         List<string> tempItemsList = DictionaryUtils.DictionaryToList(config.Items).ToList();
+        tempItemsList.Add("");
         foreach (CustomItem customItem in CustomItem.Registered.Where(c =>
                      !config.ExcludedExiledCustomItemsID.Contains(c.Id)))
         {
+            Log.Debug($"Added {customItem.Name} with  ID {customItem.Id}");
             tempItemsList.Add(customItem.Name);
             CustomItems.Add(customItem);
         }
+
 
         ItemsList = tempItemsList.ToArray();
         CustomCardItemsList = new[] { config.CustomCardItemName }.Concat(ItemsList).ToArray();
