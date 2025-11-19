@@ -212,7 +212,7 @@ public static class CharacterCreator
                     KeycardCreatorHelpers.ChangeKeycardColorDisplay(player, keycardColorInput);
                 }
 
-                if (ASSNetworking.TryGetSetting(player, KeycardColorInputID,
+                if (ASSNetworking.TryGetSetting(player, KeycardPermissionColorInputID,
                         out ASSTextInput? permissionColorInput))
                 {
                     KeycardCreatorHelpers.ChangeKeycardPermissionColorDisplay(player, permissionColorInput);
