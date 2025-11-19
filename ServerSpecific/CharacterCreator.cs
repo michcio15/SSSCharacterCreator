@@ -76,6 +76,8 @@ public static class CharacterCreator
 
     private static ASSGroup Generator(LabPlayer owner)
     {
+        ASSDropdown lastItemDropdown = ValidKeycardCreator(owner) ? new ASSDropdown(169, translation.Item8Text, CustomCardItemsList, onChanged: Update) : new ASSDropdown(169, translation.Item8Text, ItemsList);
+
         List<ASSBase> settings =
         [
             new ASSHeader(-1, translation.CharacterCreatorHeaderText),
@@ -105,12 +107,13 @@ public static class CharacterCreator
             new ASSDropdown(166, translation.Item5Text, ItemsList),
             new ASSDropdown(167, translation.Item6Text, ItemsList),
             new ASSDropdown(168, translation.Item7Text, ItemsList),
-            new ASSDropdown(169, translation.Item8Text, CustomCardItemsList, onChanged: Update),
+            //TODO:wlepic tu
+            lastItemDropdown,
             new ASSButton(170, translation.CharacterCreatorCreateButtonText,
                 translation.CharacterCreatorCreateButtonTooltip, 0.5f, onChanged: CreateCharacter)
         ];
 
-        if (!ValidKeycardCreator(owner))
+        if (!ShouldHaveKeycardCreator(owner))
         {
             Log.Debug($"Generator called for {owner.Nickname}");
             return new ASSGroup(settings, 0, p => p == owner && Valid(p));
@@ -209,7 +212,7 @@ public static class CharacterCreator
                     KeycardCreatorHelpers.ChangeKeycardColorDisplay(player, keycardColorInput);
                 }
 
-                if (ASSNetworking.TryGetSetting(player, KeycardColorInputID,
+                if (ASSNetworking.TryGetSetting(player, KeycardPermissionColorInputID,
                         out ASSTextInput? permissionColorInput))
                 {
                     KeycardCreatorHelpers.ChangeKeycardPermissionColorDisplay(player, permissionColorInput);
@@ -220,8 +223,10 @@ public static class CharacterCreator
 
     private static bool Valid(LabPlayer player) => player.ToExiled().CheckPermission(config.CharacterCreatorPermission);
 
+    private static bool ValidKeycardCreator(LabPlayer player) =>
+        player.ToExiled().CheckPermission(config.CustomKeycardCreatorPermission);
 
-    private static bool ValidKeycardCreator(LabPlayer player)
+    private static bool ShouldHaveKeycardCreator(LabPlayer player)
     {
         ASSNetworking.TryGetSetting(player, 169, out ASSDropdown? dropdown);
         if (dropdown is null || dropdown.OptionSelected != config.CustomCardItemName)
@@ -366,8 +371,9 @@ public static class CharacterCreator
 
             if (player == null)
             {
-                Log.Debug($"player is null");
+                Log.Debug("player is null");
             }
+
             playerMenu.Update(false, true, true);
         }
     }

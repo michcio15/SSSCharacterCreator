@@ -17,6 +17,11 @@ For player to get the character creator he needs to have the permission stated i
 character_creator_permission: 'cc.create'
 ```
 
+if the player also needs the custom keycard creator he needs to have the permission
+```yaml
+custom_keycard_creator_permission: 'cc.keycard'
+```
+
 Player can be spawned only if he is **not** alive and the round is started.
 
 ## Support
