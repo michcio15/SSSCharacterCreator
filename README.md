@@ -23,13 +23,7 @@ Player can be spawned only if he is **not** alive and the round is started.
 
 You can open an [issue](https://github.com/michcio15/SSSCharacterCreator/issues) or dm/ping me on Exiled discord
 *@michcio15*.
-The config names are generated using AI cuz i am lazy
 
 Player can be spawned only if he is **not** alive and the round is started.
-
-## Support
-
-You can open an [issue](https://github.com/michcio15/SSSCharacterCreator/issues) or dm/ping me on Exiled discord
-*@michcio15*.
 
 ###### The config values are generated using AI cuz i am lazy
