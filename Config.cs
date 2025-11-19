@@ -137,6 +137,8 @@ public class Config : IConfig
 
 
     public string CharacterCreatorPermission { get; set; } = "cc.create";
+
+    public string CustomKeycardCreatorPermission { get; set; } = "cc.keycard";
     public string CustomCardItemName { get; set; } = "<b>Custom Keycard</b>";
 
     [Description("What Custom Items should not be able to be given with the menu")]
