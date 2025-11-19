@@ -355,12 +355,21 @@ public static class CharacterCreator
 
     public static void OnVerified(VerifiedEventArgs ev)
     {
-        foreach ((_, PlayerMenu? playerMenu) in menus)
+        menus[ev.Player.ToLab()] = new PlayerMenu(Generator, ev.Player.ToLab());
+        foreach ((LabPlayer player, PlayerMenu? playerMenu) in menus)
         {
+            if (playerMenu == null)
+            {
+                Log.Debug($"{player.Nickname} playerMenu is null");
+                continue;
+            }
+
+            if (player == null)
+            {
+                Log.Debug($"player is null");
+            }
             playerMenu.Update(false, true, true);
         }
-
-        menus[ev.Player.ToLab()] = new PlayerMenu(Generator, ev.Player.ToLab());
     }
 
     public static void OnLeft(LeftEventArgs ev)
@@ -373,11 +382,11 @@ public static class CharacterCreator
 
         Log.Debug($"Destroying menu for {ev.Player.Nickname}");
         menu.Destroy();
-
-        /*foreach (KeyValuePair<LabPlayer, PlayerMenu> kvp in Menus)
+        menus.Remove(player);
+        foreach (KeyValuePair<LabPlayer, PlayerMenu> kvp in menus)
         {
             kvp.Value.Update(false, true);
-        }*/
+        }
     }
 
     #endregion
